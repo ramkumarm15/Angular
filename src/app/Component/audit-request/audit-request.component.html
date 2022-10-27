@@ -1,0 +1,111 @@
+<main>
+    <app-navbar></app-navbar>
+    <div class="container mt-3">
+        <div class="row">
+            <div class="col-lg-5">
+                <div class="card">
+                    <div class="card-body">
+                        <form [formGroup]="auditTypeForm" (ngSubmit)="formSubmit();">
+
+                            <div class="form-group form-check" *ngFor="let type of auditTypeInput">
+
+                                <input type="radio" name="auditType" [id]="type.name" class="form-check-input"
+                                    formControlName="auditType" [value]="type.value" required [ngClass]="{'is-invalid' : auditTypeForm.controls['auditType'].invalid && (auditTypeForm.controls['auditType'].dirty ||auditTypeForm.controls['auditType'].touched), 
+                                        'is-valid':auditTypeForm.controls['auditType'].valid}">
+                                <label [for]="type.name">{{type.name}}</label>
+
+                                <div *ngIf="(auditTypeForm.controls['auditType'].dirty || auditTypeForm.controls['auditType'].touched) && auditTypeForm.controls['auditType'].errors?.['required']"
+                                    class="invalid-feedback">
+                                    auditType is required
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary"
+                                [disabled]="!auditTypeForm.valid">Submit</button>
+                        </form>
+                        <!-- {{auditTypeForm.value | json}} -->
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-7" *ngIf="questions.length">
+                <div class="card">
+                    <div class="card-body">
+                        <form [formGroup]="projectDetailsForm" (ngSubmit)="formValid();">
+                            <div class="form-group">
+                                <label for="projectName">Project Name</label>
+                                <input type="text" name="projectName" id="projectName" class="form-control"
+                                    formControlName="projectName" required [ngClass]="{'is-invalid' : projectDetailsForm.controls['projectName'].invalid && (projectDetailsForm.controls['projectName'].dirty || projectDetailsForm.controls['projectName'].touched), 
+                                    'is-valid':projectDetailsForm.controls['projectName'].valid}">
+                                <div *ngIf="projectDetailsForm.controls['projectName'].dirty && projectDetailsForm.controls['projectName'].errors?.['required']"
+                                    class="invalid-feedback">
+                                    Project Name is required
+                                </div>
+                                <!-- <div *ngIf="projectDetailsForm.controls['projectName'].dirty && projectDetailsForm.controls['projectName'].errors?.['minlength']"
+                                    class="invalid-feedback">
+                                    Minimum length is 8 characters
+                                </div> -->
+                            </div>
+                            <div class="form-group">
+                                <label for="projectOwnerName">Project Owner Name</label>
+                                <input type="text" name="projectOwnerName" id="projectOwnerName"
+                                    class="form-control" formControlName="projectOwnerName" required [ngClass]="{'is-invalid' : projectDetailsForm.controls['projectOwnerName'].invalid && (projectDetailsForm.controls['projectOwnerName'].dirty || projectDetailsForm.controls['projectOwnerName'].touched), 
+                                    'is-valid':projectDetailsForm.controls['projectOwnerName'].valid}">
+                                <div *ngIf="projectDetailsForm.controls['projectOwnerName'].dirty && projectDetailsForm.controls['projectOwnerName'].errors?.['required']"
+                                    class="invalid-feedback">
+                                    Project Name is required
+                                </div>
+                                <!-- <div *ngIf="projectDetailsForm.controls['projectName'].dirty && projectDetailsForm.controls['projectName'].errors?.['minlength']"
+                                    class="invalid-feedback">
+                                    Minimum length is 8 characters
+                                </div> -->
+                            </div>
+                            <div class="form-group">
+                                <label for="applicationOwnerName">Application Owner Name</label>
+                                <input type="text" name="applicationOwnerName" id="applicationOwnerName"
+                                    class="form-control" formControlName="applicationOwnerName" required [ngClass]="{'is-invalid' : projectDetailsForm.controls['applicationOwnerName'].invalid && (projectDetailsForm.controls['applicationOwnerName'].dirty || projectDetailsForm.controls['applicationOwnerName'].touched), 
+                                    'is-valid':projectDetailsForm.controls['applicationOwnerName'].valid}">
+                                <div *ngIf="projectDetailsForm.controls['applicationOwnerName'].dirty && projectDetailsForm.controls['applicationOwnerName'].errors?.['required']"
+                                    class="invalid-feedback">
+                                    Application Owner Name is required
+                                </div>
+                                <!-- <div *ngIf="projectDetailsForm.controls['projectName'].dirty && projectDetailsForm.controls['projectName'].errors?.['minlength']"
+                                    class="invalid-feedback">
+                                    Minimum length is 8 characters
+                                </div> -->
+                            </div>
+                            <div class="form-group">
+                                <label for="date">Date</label>
+                                <input type="date" name="date" id="date" class="form-control" formControlName="date"
+                                    required [ngClass]="{'is-invalid' : projectDetailsForm.controls['date'].invalid && (projectDetailsForm.controls['date'].dirty || projectDetailsForm.controls['date'].touched), 
+                                    'is-valid':projectDetailsForm.controls['date'].valid}">
+                                <div *ngIf="projectDetailsForm.controls['date'].dirty && projectDetailsForm.controls['date'].errors?.['required']"
+                                    class="invalid-feedback">
+                                    Application Owner Name is required
+                                </div>
+                                <!-- <div *ngIf="projectDetailsForm.controls['projectName'].dirty && projectDetailsForm.controls['projectName'].errors?.['minlength']"
+                                    class="invalid-feedback">
+                                    Minimum length is 8 characters
+                                </div> -->
+                            </div>
+                            <form formArrayName="questionform" *ngFor="let x of questionInput; let i = index">
+
+                                <div class="form-group form-check">
+
+                                    <input type="checkbox" [name]="x.name" [id]="x.name" class="form-check-input"
+                                        [formControlName]="x.name">
+                                    <label [for]="x.name">{{questions[x.no - 1].question}}</label>
+
+                                    <!-- <input type="checkbox" name="" id="" class="form-check-input"> -->
+
+
+                                </div>
+                            </form>
+                            <button type="submit" class="btn btn-primary"
+                                [disabled]="!projectDetailsForm.valid">Submit</button>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
